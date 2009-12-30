@@ -17,9 +17,9 @@ module Lockdown
         def mixin
           mixin_controller
 
-          Lockdown.view_helper.class_eval do
-            include Lockdown::Frameworks::Rails::View
-          end
+          #Lockdown.view_helper.class_eval do
+            #include Lockdown::Frameworks::Rails::View
+          #end
 
           Lockdown.system.class_eval do 
             extend Lockdown::Frameworks::Rails::System
