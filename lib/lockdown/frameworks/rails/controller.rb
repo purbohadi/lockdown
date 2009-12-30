@@ -52,10 +52,11 @@ module Lockdown
           end
           
           def store_location
-            if (request.method == :get) && (session[:thispage] != sent_from_uri)
-              session[:prevpage] = session[:thispage] || ''
-              session[:thispage] = sent_from_uri
-            end
+            #if (request.method == :get) && (session[:thispage] != sent_from_uri)
+              #session[:prevpage] = session[:thispage] || ''
+              #session[:thispage] = sent_from_uri
+            #end
+            session[:return_to] = request.request_uri
           end
 
           def sent_from_uri
@@ -128,11 +129,13 @@ module Lockdown
           end
 
           def redirect_back_or_default(default)
-            if session[:prevpage].nil? || session[:prevpage].blank?
-              redirect_to(default) 
-            else
-              redirect_to(session[:prevpage])
-            end
+            #if session[:prevpage].nil? || session[:prevpage].blank?
+              #redirect_to(default) 
+            #else
+              #redirect_to(session[:prevpage])
+            #end
+            redirect_to(session[:return_to] || default)
+            session[:return_to] = nil
           end
   
           # Called from current_user.  Now, attempt to login by
